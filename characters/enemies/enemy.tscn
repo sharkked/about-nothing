@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://dn6b6divjtqvi"]
+
+[ext_resource type="PackedScene" uid="uid://dyc6ehkjx7n2g" path="res://characters/character.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://collision/hitboxes/hurtbox.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://dvjrdkjq4yr0n" path="res://characters/enemies/sandbag.png" id="3_bv87t"]
+[ext_resource type="Script" path="res://characters/enemies/enemy.gd" id="4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1kau3"]
+resource_local_to_scene = true
+size = Vector2(22, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iedmc"]
+size = Vector2(16, 45)
+
+[sub_resource type="Curve" id="3"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="4"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, 0), 0.0, 1008.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="5"]
+max_value = 3.0
+_data = [Vector2(0, 1.25455), 0.0, 0.0, 0, 0, Vector2(1, 0.572727), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="6"]
+offsets = PackedFloat32Array(0.891117, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Enemy" instance=ExtResource("1")]
+collision_layer = 16
+collision_mask = 104
+script = ExtResource("4")
+
+[node name="Sprite" parent="Pivot" index="0"]
+texture = ExtResource("3_bv87t")
+
+[node name="Hurtbox" parent="Pivot" index="2" instance=ExtResource("3")]
+position = Vector2(0, -24)
+
+[node name="CollisionShape2D" parent="Pivot/Hurtbox" index="0"]
+position = Vector2(-5.02681e-07, 0)
+shape = SubResource("RectangleShape2D_1kau3")
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = true
+position = Vector2(-6.55671e-08, -22.5)
+shape = SubResource("RectangleShape2D_iedmc")
+
+[node name="HitParticles" type="CPUParticles2D" parent="." index="5"]
+position = Vector2(0, -24)
+emitting = false
+amount = 50
+lifetime = 0.5
+speed_scale = 2.0
+randomness = 1.0
+lifetime_randomness = 0.37
+spread = 40.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+damping_curve = SubResource("3")
+angle_curve = SubResource("4")
+scale_amount_curve = SubResource("5")
+color_ramp = SubResource("6")
+
+[connection signal="area_entered" from="Pivot/Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+
+[editable path="Pivot/Hurtbox"]

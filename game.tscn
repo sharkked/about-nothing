@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3j8uaj70sks0"]
+
+[ext_resource type="Script" path="res://game.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://vth1okyb5nh5" path="res://data/rooms/room_test_3.tscn" id="2_1v7cy"]
+[ext_resource type="AudioStream" uid="uid://cfmbwba627dv6" path="res://audio/bgm_dogvirus_chill.ogg" id="3"]
+[ext_resource type="Theme" uid="uid://pt1kdoo3pm8u" path="res://themes/theme.tres" id="3_xws16"]
+[ext_resource type="Shader" path="res://crt.gdshader" id="4_itjfu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ltrq"]
+shader = ExtResource("4_itjfu")
+
+[node name="Game" type="Node"]
+process_mode = 3
+script = ExtResource("1")
+current_room = ExtResource("2_1v7cy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+follow_viewport_scale = 3.0
+
+[node name="ExitLabel" type="Label" parent="CanvasLayer"]
+offset_left = 1.5
+offset_right = 88.5
+offset_bottom = 9.0
+theme = ExtResource("3_xws16")
+text = "HOLD [ESC] TO EXIT..."
+
+[node name="Overlay" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_xws16")
+
+[node name="CRT" type="ColorRect" parent="CanvasLayer/Overlay"]
+visible = false
+material = SubResource("ShaderMaterial_3ltrq")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CRT2" type="ColorRect" parent="CanvasLayer/Overlay"]
+visible = false
+material = SubResource("ShaderMaterial_3ltrq")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3")
+volume_db = -23.639
