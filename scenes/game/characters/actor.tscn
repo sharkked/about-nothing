@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyc6ehkjx7n2g"]
+
+[ext_resource type="Script" path="res://scenes/game/characters/actor.gd" id="1_npfpv"]
+[ext_resource type="Script" path="res://scenes/game/common/state/state_machine.gd" id="2_clehp"]
+[ext_resource type="Script" path="res://scenes/game/common/state/state.gd" id="3_sgbcu"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 33)
+
+[node name="Character" type="CharacterBody2D"]
+collision_mask = 96
+script = ExtResource("1_npfpv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Pivot" type="Marker2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Pivot"]
+position = Vector2(0, -32)
+
+[node name="Hitboxes" type="Node2D" parent="Pivot"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+modulate = Color(1, 0.498039, 0, 1)
+position = Vector2(0, -16.5)
+shape = SubResource("1")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_clehp")
+initial_state = NodePath("Wait")
+
+[node name="Wait" type="Node" parent="StateMachine"]
+script = ExtResource("3_sgbcu")

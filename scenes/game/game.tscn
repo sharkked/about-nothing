@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3j8uaj70sks0"]
+
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_bo4q1"]
+[ext_resource type="PackedScene" uid="uid://cvg2taery3rpo" path="res://scenes/ui/ui.tscn" id="1_g00x3"]
+[ext_resource type="PackedScene" uid="uid://vth1okyb5nh5" path="res://scenes/game/areas/rooms/room_test_0.tscn" id="2_rjdkv"]
+[ext_resource type="Theme" uid="uid://pt1kdoo3pm8u" path="res://scenes/ui/common/themes/theme.tres" id="2_tbivf"]
+[ext_resource type="Shader" path="res://assets/graphics/shaders/crt.gdshader" id="3_k2jav"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ltrq"]
+shader = ExtResource("3_k2jav")
+shader_parameter/show_deform = true
+shader_parameter/deform_amount_x = 5.0
+shader_parameter/deform_amount_y = 5.0
+shader_parameter/aberration = 0.01
+shader_parameter/show_scanlines = true
+shader_parameter/show_vignette = true
+
+[node name="Game" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_bo4q1")
+current_room = ExtResource("2_rjdkv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+follow_viewport_scale = 3.0
+
+[node name="ExitLabel" type="Label" parent="CanvasLayer"]
+offset_left = 1.5
+offset_right = 88.5
+offset_bottom = 9.0
+theme = ExtResource("2_tbivf")
+text = "HOLD [ESC] TO EXIT..."
+
+[node name="Overlay" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_tbivf")
+
+[node name="CRT" type="ColorRect" parent="CanvasLayer/Overlay"]
+visible = false
+material = SubResource("ShaderMaterial_3ltrq")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CRT2" type="ColorRect" parent="CanvasLayer/Overlay"]
+visible = false
+material = SubResource("ShaderMaterial_3ltrq")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" parent="." instance=ExtResource("1_g00x3")]

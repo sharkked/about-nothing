@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://busa0nmdpl7wn"]
+
+[ext_resource type="Script" path="res://assets/custom_types/item.gd" id="1"]
+
+[resource]
+script = ExtResource( "1" )
+name = "Key"
+stackable = false
+max_stack_size = 1
+type = null

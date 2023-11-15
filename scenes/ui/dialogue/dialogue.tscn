@@ -1,0 +1,136 @@
+[gd_scene load_steps=12 format=3 uid="uid://cbspmv8q7jrcc"]
+
+[ext_resource type="Theme" uid="uid://pt1kdoo3pm8u" path="res://scenes/ui/common/themes/theme.tres" id="1_inwbx"]
+[ext_resource type="Script" path="res://scenes/ui/dialogue/dialogue.gd" id="2_ucohs"]
+[ext_resource type="Texture2D" uid="uid://d50tg1wnu4yr" path="res://scenes/ui/sprites/textbox.png" id="3_k77el"]
+[ext_resource type="Texture2D" uid="uid://dsvnmyxjtao8e" path="res://scenes/ui/sprites/talk/comedy.png" id="4_t456b"]
+[ext_resource type="Texture2D" uid="uid://c5ap56gvexuuo" path="res://scenes/ui/sprites/talk/test1_1.png" id="5_l8ec7"]
+[ext_resource type="Texture2D" uid="uid://bntxg33elsn0c" path="res://scenes/ui/sprites/talk/test1_2.png" id="6_jgtpo"]
+[ext_resource type="Texture2D" uid="uid://ca8tv01ugg2va" path="res://scenes/ui/sprites/talk/test1_3.png" id="7_ffbqi"]
+[ext_resource type="Texture2D" uid="uid://bdopc8enc67um" path="res://scenes/ui/sprites/talk/virus.png" id="8_l5h4m"]
+[ext_resource type="AudioStream" uid="uid://cdb7i7c6ijw0m" path="res://assets/audio/sfx/se_voice_laurel.ogg" id="9_77s0a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1045"]
+atlas = ExtResource("5_l8ec7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qkw7y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_t456b")
+}],
+"loop": true,
+"name": &"funny",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1045")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jgtpo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ffbqi")
+}],
+"loop": true,
+"name": &"memo_neutral",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_l5h4m")
+}],
+"loop": true,
+"name": &"virus",
+"speed": 5.0
+}]
+
+[node name="Dialogue" type="HBoxContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -80.0
+offset_right = -32.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 0
+theme = ExtResource("1_inwbx")
+script = ExtResource("2_ucohs")
+
+[node name="Textboxes" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="TalkBox" type="NinePatchRect" parent="Textboxes"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("3_k77el")
+region_rect = Rect2(0, 0, 32, 16)
+patch_margin_left = 9
+patch_margin_top = 12
+patch_margin_right = 30
+patch_margin_bottom = 2
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Textboxes/TalkBox"]
+position = Vector2(32, 31)
+sprite_frames = SubResource("SpriteFrames_qkw7y")
+animation = &"funny"
+
+[node name="TextBox" type="NinePatchRect" parent="Textboxes"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_k77el")
+region_rect = Rect2(0, 0, 32, 16)
+patch_margin_left = 9
+patch_margin_top = 12
+patch_margin_right = 30
+patch_margin_bottom = 2
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Content" type="RichTextLabel" parent="Textboxes/TextBox"]
+layout_mode = 0
+anchor_top = 0.156
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -0.984
+offset_right = -8.0
+offset_bottom = -1.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "ok so we just fucked this up again right? like this shouldnt work now because i changed the spacing on the font right?"
+scroll_active = false
+meta_underlined = false
+visible_characters_behavior = 1
+language = "en"
+
+[node name="Title" type="RichTextLabel" parent="Textboxes/TextBox"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 4.0
+offset_top = -3.0
+offset_right = 4.0
+offset_bottom = 10.0
+grow_horizontal = 2
+mouse_filter = 2
+scroll_active = false
+meta_underlined = false
+
+[node name="Parser" type="RichTextLabel" parent="Textboxes/TextBox"]
+layout_mode = 0
+bbcode_enabled = true
+scroll_active = false
+visible_characters = 0
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_77s0a")

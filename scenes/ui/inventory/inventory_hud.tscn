@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh3bqjq4qbvqg"]
+
+[ext_resource type="Theme" uid="uid://pt1kdoo3pm8u" path="res://scenes/ui/common/themes/theme.tres" id="1_avjtu"]
+
+[node name="InventoryHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_avjtu")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+
+[node name="Panel" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+patch_margin_top = 10
+patch_margin_right = 18
+patch_margin_bottom = 2
+
+[node name="Title" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Title"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -4.0
+offset_right = 136.0
+offset_bottom = 16.0
+auto_translate = false
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/normal_font_size = 16
+text = "inventory
+"
+meta_underlined = false
+
+[node name="Items" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 2
+
+[node name="ItemList" type="GridContainer" parent="MarginContainer/Items"]
+layout_mode = 2

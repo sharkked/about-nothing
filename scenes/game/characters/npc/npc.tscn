@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://xchg8t8xhh1g"]
+
+[ext_resource type="Script" path="res://scenes/game/characters/npc/npc.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://dyc6ehkjx7n2g" path="res://scenes/game/characters/actor.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://b7i1xjl1artit" path="res://scenes/game/misc/fx/fx_chatter.tscn" id="3"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqua3"]
+size = Vector2(200, 113)
+
+[node name="NPC" instance=ExtResource("2")]
+collision_layer = 128
+collision_mask = 97
+script = ExtResource("1")
+text_id = ""
+watch_player = true
+dialogue_radius = 128.0
+
+[node name="AnimationPlayer" parent="." index="0"]
+root_node = NodePath("")
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("1")
+
+[node name="Chatter" parent="." index="4" instance=ExtResource("3")]
+position = Vector2(11, -30)
+
+[node name="WatchArea" type="Area2D" parent="." index="5"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WatchArea" index="0"]
+position = Vector2(0, -22.5)
+shape = SubResource("RectangleShape2D_mqua3")
+
+[connection signal="body_entered" from="WatchArea" to="." method="_on_watch_area_body_entered"]
+[connection signal="body_exited" from="WatchArea" to="." method="_on_watch_area_body_exited"]

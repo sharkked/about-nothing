@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkc7px0wgmt5a"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_pvko7"]
+[ext_resource type="PackedScene" uid="uid://bc5070xtgy5m3" path="res://scenes/ui/title_screen.tscn" id="2_3txwn"]
+[ext_resource type="PackedScene" uid="uid://d3j8uaj70sks0" path="res://scenes/game/game.tscn" id="2_8q8mh"]
+[ext_resource type="AudioStream" uid="uid://cfmbwba627dv6" path="res://assets/audio/music/bgm_dogvirus_chill.ogg" id="4_vfg0a"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_pvko7")
+game_scene = ExtResource("2_8q8mh")
+
+[node name="TitleScreen" parent="." instance=ExtResource("2_3txwn")]
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vfg0a")
+volume_db = -23.639
+
+[connection signal="exit_game" from="TitleScreen" to="." method="_on_exit_game"]
+[connection signal="load_game" from="TitleScreen" to="." method="_on_load_game"]
+[connection signal="new_game" from="TitleScreen" to="." method="_on_new_game"]
