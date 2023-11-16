@@ -3,8 +3,9 @@ extends Control
 @onready var grid = $MarginContainer/Items/ItemList
 
 func _ready():
-	Game.data.inventory.changed.connect(self._on_inventory_changed)
-	_on_inventory_changed(Game.data.inventory)
+	pass
+	#Game.data.inventory.changed.connect(self._on_inventory_changed)
+	#_on_inventory_changed(Game.data.inventory)
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
