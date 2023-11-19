@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cuy6eog18h86b"]
+[gd_scene load_steps=13 format=3 uid="uid://cuy6eog18h86b"]
 
 [ext_resource type="PackedScene" uid="uid://dn6b6divjtqvi" path="res://scenes/game/characters/enemies/enemy.tscn" id="1_7b76u"]
 [ext_resource type="Texture2D" uid="uid://dishv4un1j78x" path="res://assets/graphics/sprites/enemies/slime/slime_sheet.png" id="2_h4uos"]
 [ext_resource type="Script" path="res://scenes/game/characters/enemies/slime/slime_wait.gd" id="3_3jh7u"]
+[ext_resource type="Script" path="res://scenes/game/common/collision/hurtbox.gd" id="3_y3s0i"]
 [ext_resource type="Script" path="res://scenes/game/characters/enemies/slime/slime_move.gd" id="4_2r6jt"]
 [ext_resource type="Script" path="res://scenes/game/characters/enemies/slime/slime_hurt.gd" id="5_s8gdm"]
 
@@ -63,12 +64,11 @@ _data = {
 "Wait": SubResource("Animation_ganvs")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_01xak"]
-resource_local_to_scene = true
-size = Vector2(24, 17)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2kp0n"]
+size = Vector2(22, 17)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wbhml"]
-size = Vector2(20, 15)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_byk71"]
+size = Vector2(24, 17)
 
 [node name="Enemy" instance=ExtResource("1_7b76u")]
 
@@ -78,6 +78,10 @@ libraries = {
 "": SubResource("AnimationLibrary_7o6sv")
 }
 
+[node name="EnvironmentCollisionBox" parent="." index="1"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_2kp0n")
+
 [node name="Sprite" parent="Pivot" index="0"]
 position = Vector2(0, -16)
 texture = ExtResource("2_h4uos")
@@ -85,15 +89,19 @@ hframes = 9
 vframes = 2
 frame = 1
 
-[node name="CollisionShape2D" parent="Pivot/Hurtbox" index="0"]
-position = Vector2(-2.98023e-08, 15.5)
-shape = SubResource("RectangleShape2D_01xak")
+[node name="Hurtbox" type="Area2D" parent="Pivot/Hurtboxes" index="0"]
+collision_layer = 1024
+collision_mask = 512
+script = ExtResource("3_y3s0i")
 
-[node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(-2.18557e-08, -7.5)
-shape = SubResource("RectangleShape2D_wbhml")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Hurtboxes/Hurtbox" index="0"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_byk71")
 
-[node name="Wait" parent="StateMachine" index="0"]
+[node name="StateMachine" parent="." index="3"]
+initial_state = NodePath("Wait")
+
+[node name="Wait" type="Node" parent="StateMachine" index="0"]
 script = ExtResource("3_3jh7u")
 
 [node name="Move" type="Node" parent="StateMachine" index="1"]
@@ -102,8 +110,6 @@ script = ExtResource("4_2r6jt")
 [node name="Hurt" type="Node" parent="StateMachine" index="2"]
 script = ExtResource("5_s8gdm")
 
-[node name="HitParticles" parent="." index="5"]
+[node name="HitParticles" parent="." index="4"]
 position = Vector2(0, -8)
 color = Color(0.745098, 0.87451, 0.529412, 1)
-
-[editable path="Pivot/Hurtbox"]

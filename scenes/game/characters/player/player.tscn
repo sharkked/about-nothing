@@ -1,10 +1,10 @@
-[gd_scene load_steps=36 format=3 uid="uid://b7rth335xmcrr"]
+[gd_scene load_steps=37 format=3 uid="uid://b7rth335xmcrr"]
 
 [ext_resource type="PackedScene" uid="uid://dyc6ehkjx7n2g" path="res://scenes/game/characters/actor.tscn" id="1_tvvje"]
 [ext_resource type="Script" path="res://scenes/game/characters/player/player.gd" id="2_atnt1"]
 [ext_resource type="Texture2D" uid="uid://k5872220u1bq" path="res://assets/graphics/sprites/player/sera_sheet.png" id="4_6wgo6"]
-[ext_resource type="PackedScene" path="res://scenes/game/common/collision/hurtbox.tscn" id="5_t1bpf"]
-[ext_resource type="PackedScene" uid="uid://bkefe5pc2dljs" path="res://scenes/game/common/collision/hitbox.tscn" id="6_flhy2"]
+[ext_resource type="Script" path="res://scenes/game/common/collision/hitbox.gd" id="4_253ba"]
+[ext_resource type="Script" path="res://scenes/game/common/collision/hurtbox.gd" id="5_iq7an"]
 [ext_resource type="Script" path="res://scenes/game/characters/player/states/player_air.gd" id="7_q5ju0"]
 [ext_resource type="Script" path="res://scenes/game/characters/player/states/player_airdash.gd" id="8_h1f52"]
 [ext_resource type="Script" path="res://scenes/game/characters/player/states/player_crouch.gd" id="9_p6yld"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scenes/game/characters/player/states/player_walljump.gd" id="15_s1qiq"]
 [ext_resource type="Script" path="res://scenes/game/characters/player/states/player_wallslide.gd" id="16_kw1k0"]
 [ext_resource type="Script" path="res://scenes/game/characters/player/states/player_waveland.gd" id="17_830q8"]
+[ext_resource type="Script" path="res://scenes/game/common/vcamera2d.gd" id="17_y1qjk"]
 
 [sub_resource type="Animation" id="Animation_hddts"]
 resource_name = "Air"
@@ -52,7 +53,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Hitboxes/0:position")
+tracks/1/path = NodePath("Pivot/Hitboxes/Hitbox:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -64,7 +65,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/Hitboxes/0:scale")
+tracks/2/path = NodePath("Pivot/Hitboxes/Hitbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -76,7 +77,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/Hitboxes/0/Area2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Pivot/Hitboxes/Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -100,7 +101,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Pivot/Hitboxes/0:knockback")
+tracks/5/path = NodePath("Pivot/Hitboxes/Hitbox:knockback")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -112,7 +113,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Pivot/Hitboxes/0:angle")
+tracks/6/path = NodePath("Pivot/Hitboxes/Hitbox:angle")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -124,7 +125,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Pivot/Hitboxes/0:hitstun")
+tracks/7/path = NodePath("Pivot/Hitboxes/Hitbox:hitstun")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -148,7 +149,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Pivot/Hitboxes/0:damage")
+tracks/9/path = NodePath("Pivot/Hitboxes/Hitbox:damage")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -214,7 +215,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Hitboxes/0:position")
+tracks/1/path = NodePath("Pivot/Hitboxes/Hitbox:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -226,7 +227,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/Hitboxes/0:scale")
+tracks/2/path = NodePath("Pivot/Hitboxes/Hitbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -238,7 +239,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/Hitboxes/0/Area2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Pivot/Hitboxes/Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -262,7 +263,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Pivot/Hitboxes/0:knockback")
+tracks/5/path = NodePath("Pivot/Hitboxes/Hitbox:knockback")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -274,7 +275,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Pivot/Hitboxes/0:angle")
+tracks/6/path = NodePath("Pivot/Hitboxes/Hitbox:angle")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -286,7 +287,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Pivot/Hitboxes/0:hitstun")
+tracks/7/path = NodePath("Pivot/Hitboxes/Hitbox:hitstun")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -310,7 +311,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Pivot/Hitboxes/0:damage")
+tracks/9/path = NodePath("Pivot/Hitboxes/Hitbox:damage")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -339,7 +340,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Hitboxes/0:position")
+tracks/1/path = NodePath("Pivot/Hitboxes/Hitbox:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -351,7 +352,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/Hitboxes/0:scale")
+tracks/2/path = NodePath("Pivot/Hitboxes/Hitbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -363,7 +364,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/Hitboxes/0/Area2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Pivot/Hitboxes/Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -387,7 +388,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Pivot/Hitboxes/0:knockback")
+tracks/5/path = NodePath("Pivot/Hitboxes/Hitbox:knockback")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -399,7 +400,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Pivot/Hitboxes/0:angle")
+tracks/6/path = NodePath("Pivot/Hitboxes/Hitbox:angle")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -411,7 +412,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Pivot/Hitboxes/0:hitstun")
+tracks/7/path = NodePath("Pivot/Hitboxes/Hitbox:hitstun")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -435,7 +436,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Pivot/Hitboxes/0:damage")
+tracks/9/path = NodePath("Pivot/Hitboxes/Hitbox:damage")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -447,7 +448,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Pivot/Hitboxes/0:hitsound")
+tracks/10/path = NodePath("Pivot/Hitboxes/Hitbox:hitsound")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -506,7 +507,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Hitboxes/0:position")
+tracks/1/path = NodePath("Pivot/Hitboxes/Hitbox:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -518,7 +519,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/Hitboxes/0:scale")
+tracks/2/path = NodePath("Pivot/Hitboxes/Hitbox:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -530,7 +531,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/Hitboxes/0/Area2D/CollisionShape2D:disabled")
+tracks/3/path = NodePath("Pivot/Hitboxes/Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -554,7 +555,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Pivot/Hitboxes/0:knockback")
+tracks/5/path = NodePath("Pivot/Hitboxes/Hitbox:knockback")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -566,7 +567,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Pivot/Hitboxes/0:angle")
+tracks/6/path = NodePath("Pivot/Hitboxes/Hitbox:angle")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -578,7 +579,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Pivot/Hitboxes/0:hitstun")
+tracks/7/path = NodePath("Pivot/Hitboxes/Hitbox:hitstun")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -602,7 +603,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Pivot/Hitboxes/0:damage")
+tracks/9/path = NodePath("Pivot/Hitboxes/Hitbox:damage")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -617,7 +618,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot/Hitboxes/0:position")
+tracks/0/path = NodePath("Pivot/Hitboxes/Hitbox:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -629,7 +630,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Pivot/Hitboxes/0:scale")
+tracks/1/path = NodePath("Pivot/Hitboxes/Hitbox:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -641,7 +642,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Pivot/Hitboxes/0:damage")
+tracks/2/path = NodePath("Pivot/Hitboxes/Hitbox:damage")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -653,7 +654,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Pivot/Hitboxes/0:knockback")
+tracks/3/path = NodePath("Pivot/Hitboxes/Hitbox:knockback")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -665,7 +666,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Pivot/Hitboxes/0:angle")
+tracks/4/path = NodePath("Pivot/Hitboxes/Hitbox:angle")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -677,7 +678,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Pivot/Hitboxes/0:hitstun")
+tracks/5/path = NodePath("Pivot/Hitboxes/Hitbox:hitstun")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -689,7 +690,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Pivot/Hitboxes/0:hitstop")
+tracks/6/path = NodePath("Pivot/Hitboxes/Hitbox:hitstop")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -701,7 +702,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Pivot/Hitboxes/0/Area2D/CollisionShape2D:disabled")
+tracks/7/path = NodePath("Pivot/Hitboxes/Hitbox/Area2D/CollisionShape2D:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -749,7 +750,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Pivot/Hitboxes/0:hitsound")
+tracks/11/path = NodePath("Pivot/Hitboxes/Hitbox:hitsound")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -876,20 +877,17 @@ _data = {
 "Waveland": SubResource("Animation_7qvwc")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gacxn"]
-resource_local_to_scene = true
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8pj5r"]
 size = Vector2(2, 2)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkpmj"]
-resource_local_to_scene = true
-size = Vector2(2, 2)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_neayu"]
+size = Vector2(18, 29)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1oioj"]
-size = Vector2(8, 29)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xuv7h"]
+size = Vector2(14, 28)
 
 [node name="Player" instance=ExtResource("1_tvvje")]
-collision_layer = 2
-collision_mask = 100
+collision_layer = 2050
 script = ExtResource("2_atnt1")
 AIR_SPD = 1720.32
 RUN_SPD = 200.0
@@ -906,38 +904,43 @@ libraries = {
 "": SubResource("AnimationLibrary_l2b6c")
 }
 
-[node name="BulletSpawn" type="Marker2D" parent="Pivot" index="0"]
+[node name="VCamera2D" type="Node2D" parent="Pivot" index="0"]
+position = Vector2(0, -32)
+script = ExtResource("17_y1qjk")
+priority = 100
+
+[node name="BulletSpawn" type="Marker2D" parent="Pivot" index="1"]
 position = Vector2(12, -14)
 
-[node name="Sprite" parent="Pivot" index="1"]
+[node name="Sprite" parent="Pivot" index="2"]
+position = Vector2(0, -32)
 texture = ExtResource("4_6wgo6")
 hframes = 6
 vframes = 6
 frame = 16
 
-[node name="Hurtbox" parent="Pivot" index="2" instance=ExtResource("5_t1bpf")]
-visible = false
-collision_layer = 2
-
-[node name="CollisionShape2D" parent="Pivot/Hurtbox" index="0"]
-position = Vector2(0, -14)
-scale = Vector2(8, 14)
-shape = SubResource("RectangleShape2D_gacxn")
-
-[node name="0" parent="Pivot/Hitboxes" index="0" instance=ExtResource("6_flhy2")]
+[node name="Hitbox" type="Area2D" parent="Pivot/Hitboxes" index="0"]
 scale = Vector2(1e-05, 1e-05)
+script = ExtResource("4_253ba")
 hitsound = "punch"
 
-[node name="Area2D" parent="Pivot/Hitboxes/0" index="0"]
-position = Vector2(0, -5.96046e-08)
-
-[node name="CollisionShape2D" parent="Pivot/Hitboxes/0/Area2D" index="0"]
-shape = SubResource("RectangleShape2D_kkpmj")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Hitboxes/Hitbox" index="0"]
+shape = SubResource("RectangleShape2D_8pj5r")
 disabled = true
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="Hurtbox" type="Area2D" parent="Pivot/Hurtboxes" index="0"]
+script = ExtResource("5_iq7an")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Hurtboxes/Hurtbox" index="0"]
 position = Vector2(0, -14.5)
-shape = SubResource("RectangleShape2D_1oioj")
+shape = SubResource("RectangleShape2D_neayu")
+
+[node name="EnvironmentCollisionBox" parent="." index="2"]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_xuv7h")
+
+[node name="StateMachine" parent="." index="3"]
+initial_state = NodePath("Wait")
 
 [node name="Air" type="Node" parent="StateMachine" index="0"]
 script = ExtResource("7_q5ju0")
@@ -967,7 +970,7 @@ script = ExtResource("12_2lai1")
 [node name="Run" type="Node" parent="StateMachine" index="8"]
 script = ExtResource("13_qvayj")
 
-[node name="Wait" parent="StateMachine" index="9"]
+[node name="Wait" type="Node" parent="StateMachine" index="9"]
 script = ExtResource("14_gcogo")
 
 [node name="Walljump" type="Node" parent="StateMachine" index="10"]
@@ -978,8 +981,3 @@ script = ExtResource("16_kw1k0")
 
 [node name="Waveland" type="Node" parent="StateMachine" index="12"]
 script = ExtResource("17_830q8")
-
-[connection signal="area_entered" from="Pivot/Hurtbox" to="." method="_on_Hurtbox_area_entered"]
-
-[editable path="Pivot/Hurtbox"]
-[editable path="Pivot/Hitboxes/0"]

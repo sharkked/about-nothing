@@ -7,7 +7,7 @@ func load_options(options: Dictionary, callback: String):
 			"button":
 				item = Button.new()
 				item.text = options[op]["text"]
-				item.align = Button.ALIGN_LEFT
+				item.align = HORIZONTAL_ALIGNMENT_LEFT
 				item.connect("pressed", owner, callback, [item])
 			"checkbox":
 				item = CheckBox.new()

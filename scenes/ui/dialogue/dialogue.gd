@@ -1,6 +1,7 @@
 class_name Dialogue
-
 extends Control
+
+signal queue_empty
 
 @onready var _title := $Textboxes/TextBox/Title
 @onready var _content := $Textboxes/TextBox/Content
@@ -22,7 +23,7 @@ const rate = 30
 var _timer = 0
 var _last_len = -1
 
-func add_content(txt : String):
+func push_content(txt : String):
 	_parser.bbcode_text = txt
 	var p_txt = _parser.text
 	var l = txt.find('{')
@@ -55,7 +56,6 @@ func set_content(content : String):
 	_content.bbcode_text = content
 
 func set_title(title : String):
-	print_debug(title)
 	_title.bbcode_text = title
 
 func play_effect(effect : String):
@@ -71,11 +71,10 @@ func play_effect(effect : String):
 			set_sprite(args[1])
 
 func set_voice(voice : String):
-	var v = "voice_" + voice
-	if SoundManager.Sounds.has(v):
-		curr_voice = v
+	if SoundManager.has_sound(SoundManager.SoundType.VC, voice):
+		curr_voice = voice
 	else:
-		curr_voice = "voice_0"
+		curr_voice = "0"
 
 func set_sprite(animation: String):
 	match animation:
@@ -91,7 +90,7 @@ func advance_text():
 	_last_len =  -1
 	index += 1
 	if index == text.size():
-		end_playback()
+		queue_empty.emit()
 	else:
 		set_content(text[index])
 
@@ -103,10 +102,9 @@ func complete_text():
 	_wait_time = 0	
 	_timer = _content.text.length()
 
-func end_playback():
-	queue_free()
-
 func _process(delta):
+	if index >= len(effects):
+		return
 	var msg_len = _content.text.length()
 	var vis_len = _content.visible_characters
 	if vis_len < msg_len:
@@ -122,6 +120,7 @@ func _process(delta):
 					_wait_time = 0.05
 				_:
 					if _wait_time <= 0:
+						# TODO: don't play sound over bbcode
 						SoundManager.play_vc(curr_voice)
 		
 		if _wait_time > 0:

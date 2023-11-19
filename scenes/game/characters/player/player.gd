@@ -26,11 +26,6 @@ var _air_jump_count : int = 0
 @export var cancel_state : bool = false
 @export var jump_cancel : bool = false
 
-func _ready():
-	super._ready()
-	var vcam = CameraMan.vcam_create()
-	$Pivot.add_child(vcam)
-
 func ready():
 	gravity = FALL_GRV
 	reset_hitboxes()

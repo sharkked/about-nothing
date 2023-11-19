@@ -1,15 +1,13 @@
 class_name GameText
 
-
-
 static func get_text(id):
 	var text = {
 		"test1" : {
 			"txt" : [
-				"{title fuckyou.mov}{voice 6}{sprite memo_neutral}whats up dickhead lolololololololololol",
-				"check out motherfuckerr!!!", 
-				"{voice sans}{sprite funny}[rainbow]ligma balls",
-				"{voice 1}{sprite memo_neutral}pretty cool right haha"
+				"{title fuckyou.mov}{voice 0}{sprite memo_neutral}guess we're back here again, huh?",
+				"kinda annoying, but hey what're ya gonna do", 
+				"although... things do seem a little [rainbow]nicer[/rainbow] this time",
+				"hey, the void gets tiring after a while, ok?"
 			]
 		},
 		

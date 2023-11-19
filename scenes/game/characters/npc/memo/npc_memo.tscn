@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://clylgsstacpv1"]
+
+[ext_resource type="PackedScene" uid="uid://xchg8t8xhh1g" path="res://scenes/game/characters/npc/npc.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://dtbb7jayeh2hr" path="res://assets/graphics/sprites/npc/memo/memo_wait.png" id="2_1ndkc"]
+
+[sub_resource type="Animation" id="1"]
+resource_name = "Wait"
+length = 0.666667
+loop_mode = 1
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333, 0.166667, 0.25, 0.333333, 0.416667, 0.5, 0.583333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bwkbj"]
+_data = {
+"Wait": SubResource("1")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcej1"]
+size = Vector2(20, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tcs5"]
+size = Vector2(64, 64)
+
+[node name="NPC" instance=ExtResource("1")]
+face_player = true
+
+[node name="AnimationPlayer" parent="." index="0"]
+root_node = NodePath("..")
+autoplay = "Wait"
+libraries = {
+"": SubResource("AnimationLibrary_bwkbj")
+}
+
+[node name="Sprite" parent="Pivot" index="0"]
+position = Vector2(0, -32)
+texture = ExtResource("2_1ndkc")
+hframes = 8
+
+[node name="EnvironmentCollisionBox" parent="." index="2"]
+position = Vector2(0, -18)
+shape = SubResource("RectangleShape2D_vcej1")
+
+[node name="StateMachine" parent="." index="3"]
+script = null
+
+[node name="DialogueArea" parent="." index="4"]
+position = Vector2(0, -24)
+
+[node name="CollisionShape2D" parent="DialogueArea" index="0"]
+shape = SubResource("RectangleShape2D_5tcs5")

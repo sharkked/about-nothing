@@ -1,7 +1,5 @@
 extends PlayerState
 
-timer = 4
-
 func init(_msg := {}) -> void:
 	player.reset_on_land()
 
@@ -11,7 +9,7 @@ func physics_process(_delta: float) -> void:
 	if _special:
 		player.ball_toss()
 	elif _jump:
-		if _dash and player._air_dash_count < Game.data.player.air_dash_max:
+		if _dash and player._air_dash_count < 1:#Game.data.player.air_dash_max:
 			state_machine.transition_to("Airdash")
 		else:
 			state_machine.transition_to("Jump")

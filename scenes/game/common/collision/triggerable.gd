@@ -28,14 +28,14 @@ func _on_body_exited(body: Node):
 		_body_exited(body)
 	pass
 
-func _player_entered(player: Player):
+func _player_entered(_player: Player):
 	pass
 
-func _player_exited(player: Player):
+func _player_exited(_player: Player):
 	pass
 
-func _body_entered(body: Node):
+func _body_entered(_body: Node):
 	pass
 
-func _body_exited(body: Node):
+func _body_exited(_body: Node):
 	pass

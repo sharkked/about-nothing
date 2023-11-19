@@ -2,7 +2,7 @@ extends Node
 
 signal reload
 
-const player_resource = preload("res://scenes/game/characters/player/player.tscn")
+@export var player_scene : PackedScene
 
 const ROOM_PATH = "res://scenes/game/areas/rooms"
 const SAVE_PATH = "user://saves"
@@ -100,9 +100,8 @@ func room_load_scene(room_scene: PackedScene):
 	add_child(room)
 	
 	player_spawn = room.get_node("Entrances/%s" % player_spawn_name)
-	
-	room.add_child(player_create())
-	player_init()
+	player_init(player_spawn.position)
+	room.add_child(player)
 
 func room_switch(room_name: String):
 	var room_scene = room_get_scene(room_name)
@@ -110,16 +109,11 @@ func room_switch(room_name: String):
 		room_load_scene(room_scene)
 
 ## Player helpers
-func player_create() -> Player:
-	if player:
-		return player
-	player = player_resource.instantiate()
+func player_init(position = Vector2.ZERO) -> Player:
+	if !player:
+		player = player_scene.instantiate()
+	player.position = position
 	return player
-
-func player_init():
-	if not player:
-		return
-	player.position = player_spawn.position
 
 func player_destroy():
 	if player:
@@ -179,7 +173,6 @@ func data_load():
 
 func set_debug_level():
 	debug_level = (debug_level + 1) % 2
-	print(debug_level)
 	match debug_level:
 		0:
 			get_tree().set_debug_collisions_hint(false) 

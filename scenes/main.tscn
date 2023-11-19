@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_pvko7"]
 [ext_resource type="PackedScene" uid="uid://bc5070xtgy5m3" path="res://scenes/ui/title_screen.tscn" id="2_3txwn"]
 [ext_resource type="PackedScene" uid="uid://d3j8uaj70sks0" path="res://scenes/game/game.tscn" id="2_8q8mh"]
-[ext_resource type="AudioStream" uid="uid://cfmbwba627dv6" path="res://assets/audio/music/bgm_dogvirus_chill.ogg" id="4_vfg0a"]
+[ext_resource type="AudioStream" uid="uid://cfmbwba627dv6" path="res://assets/audio/bgm/bgm_dogvirus_chill.ogg" id="4_vfg0a"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_pvko7")

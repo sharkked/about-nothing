@@ -10,7 +10,7 @@ func enter(_msg := {}):
 func process(delta):
 	timer -= delta
 	enemy.velocity.x = 30 * dir
-	if enemy.hitstop > 0:
+	if enemy.hitlag > 0:
 		state_machine.transition_to("Hurt")
 	elif timer <= 0:
 		state_machine.transition_to("Wait")

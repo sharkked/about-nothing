@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk8wgim2hxmpt"]
+
+[ext_resource type="Texture2D" uid="uid://c3wqtn51uusoi" path="res://scenes/game/areas/backdrop/sprites/city_far.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://b6k1kbkqg2iti" path="res://scenes/game/areas/backdrop/sprites/city_near.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://yjcors7bgssh" path="res://scenes/game/areas/backdrop/sprites/clouds.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bqcfkepder1ee" path="res://scenes/game/areas/backdrop/sprites/sky.png" id="4"]
+
+[node name="Background" type="ParallaxBackground"]
+scroll_ignore_camera_zoom = true
+
+[node name="Sky" type="ParallaxLayer" parent="."]
+texture_repeat = 2
+position = Vector2(322, 160)
+motion_scale = Vector2(0, 0)
+
+[node name="Sprite" type="Sprite2D" parent="Sky"]
+texture = ExtResource("4")
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 320)
+
+[node name="Clouds" type="ParallaxLayer" parent="."]
+texture_repeat = 2
+position = Vector2(322, 160)
+motion_scale = Vector2(0.05, 0.02)
+
+[node name="Sprite" type="Sprite2D" parent="Clouds"]
+texture = ExtResource("3")
+region_enabled = true
+region_rect = Rect2(0, 0, 2560, 320)
+
+[node name="CityFar" type="ParallaxLayer" parent="."]
+texture_repeat = 2
+position = Vector2(322, 160)
+motion_scale = Vector2(0.1, 0.05)
+
+[node name="Sprite" type="Sprite2D" parent="CityFar"]
+texture = ExtResource("1")
+region_enabled = true
+region_rect = Rect2(0, 0, 2560, 320)
+
+[node name="CityNear" type="ParallaxLayer" parent="."]
+texture_repeat = 2
+position = Vector2(322, 160)
+motion_scale = Vector2(0.15, 0.1)
+
+[node name="Sprite" type="Sprite2D" parent="CityNear"]
+texture = ExtResource("2")
+region_enabled = true
+region_rect = Rect2(0, 0, 2560, 320)

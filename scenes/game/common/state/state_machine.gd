@@ -10,29 +10,36 @@ var is_active := true:
 	set(value): set_is_active(value)
 
 # current state
-@onready var _state : State = get_node(initial_state)
+@onready var _state : State
 
 # init
 func _ready() -> void:
 	# assign self to state.state_machine
 	for child in get_children():
 		child.state_machine = self
-	_state.enter()
+	if initial_state:
+		_state = get_node(initial_state)
+		_state.enter()
 
 # delegate unhandled input callbacks
 func _unhandled_input(event: InputEvent) -> void:
-	_state.unhandled_input(event)
+	if _state:
+		_state.unhandled_input(event)
 
 # delegate process callback
 func _process(delta: float) -> void:
-	_state.process(delta)
+	if _state:
+		_state.process(delta)
 
 # delegate physics process callback
 func _physics_process(delta: float) -> void:
-	_state.physics_process(delta)
+	if _state:
+		_state.physics_process(delta)
 
 func get_state() -> StringName:
-	return _state.name
+	if _state:
+		return _state.name
+	return ""
 
 # step out of curr state and into new state
 func transition_to(target_state_path: String, msg: Dictionary = {}) -> void:
@@ -40,7 +47,8 @@ func transition_to(target_state_path: String, msg: Dictionary = {}) -> void:
 	if not has_node(target_state_path):
 		return
 	
-	_state.exit()
+	if _state:
+		_state.exit()
 	self._state = get_node(target_state_path)
 	_state.enter(msg)
 	emit_signal("state_changed", _state.name)

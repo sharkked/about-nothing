@@ -16,6 +16,7 @@ func snap_focus(vcam: VCamera2D):
 
 func vcam_create():
 	var vcam = VCamera2D.new()
+	vcam.name = "TEST ME"
 	return vcam
 
 func get_highest_vcam() -> VCamera2D:
@@ -37,6 +38,5 @@ func set_limits(left: int, top: int, right: int, bottom: int):
 
 ### Signal recievers
 func _on_vcam_priority_change(vcam: VCamera2D):
-	print("hi")
 	snap_focus(vcam)
 

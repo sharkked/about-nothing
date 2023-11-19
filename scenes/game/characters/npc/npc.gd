@@ -3,12 +3,14 @@ extends Actor
 
 @onready var chatter := $Chatter
 
-@export var text_id : String = ""
-@export var watch_player : bool = true
-@export var dialogue_radius : float = 128
+@export var text_id := ""
+@export var face_player := true
 
-var _dialogue_source : bool = false
-var watch_object : PhysicsBody2D = null
+var is_talking := false
+var in_target_area := false
+var in_dialogue_area := false
+
+var face_target : PhysicsBody2D = null
 
 func _ready():
 	super._ready()
@@ -21,37 +23,45 @@ func process(_delta):
 		velocity.y = 0
 		position.y = (position.y)
 	
-	if watch_object:
-		var watch_dist = watch_object.global_position - global_position
-		direction = Vector2.RIGHT * sign(watch_dist.x)
-		if not text_id == "":
-			chatter.visible = true
-	else:
-		chatter.visible = false
-		if _dialogue_source:
-			DialogueManager.end_dialogue()
+	if face_target:
+		var target_dist = face_target.global_position - global_position
+		direction = Vector2.RIGHT * sign(target_dist.x)
 	
-	if _dialogue_source:
-		chatter.visible = false
-		if not DialogueManager.get_dialogue():
-			_dialogue_source = false
-	elif DialogueManager.get_dialogue():
-		chatter.visible = false
-		
+	chatter.visible = has_dialogue() and in_dialogue_area and !is_talking
+
+func has_dialogue():
+	return GameText.get_text(text_id) != null
 
 func _input(_event):
 	if Input.is_action_just_pressed("act"):
-		if watch_object and GameText.get_text(text_id) and not DialogueManager.get_dialogue():
-			print_debug("oooo")
-			_dialogue_source = true
+		if in_dialogue_area and has_dialogue() and !DialogueManager.get_dialogue():
+			is_talking = true
 			DialogueManager.create_dialogue()
 			DialogueManager.add_dialogue(text_id)
 			DialogueManager.play_dialogue()
+			
+			var dialogue = DialogueManager.get_dialogue()
+			if dialogue:
+				dialogue.queue_empty.connect(_on_dialogue_end)
 
-func _on_watch_area_body_entered(body):
-	if watch_player:
-		watch_object = body
+func _on_dialogue_end():
+	is_talking = false
 
-func _on_watch_area_body_exited(body):
-	if watch_object == body:
-		watch_object = null
+func _on_dialogue_area_entered(_player):
+	in_dialogue_area = true
+
+func _on_dialogue_area_exited(_player):
+	in_dialogue_area = false
+	if is_talking:
+		DialogueManager.end_dialogue()
+		is_talking = false
+
+func _on_target_area_entered(player):
+	if face_player:
+		in_target_area = true
+		face_target = player
+
+func _on_target_area_exited(player):
+	if face_target == player:
+		in_target_area = false
+		face_target = null
